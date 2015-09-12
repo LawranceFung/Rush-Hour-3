@@ -6,18 +6,20 @@
 	    body {padding-top: 50px;}
 	    .day {padding-left: 100px;}
 	    .hours {padding-left: 100px;}
-	    .title {font-style: bold}
+	    .title {font-style: bold;}
+	    .hide {visibility: hidden;}
   	</style>
   	<link rel="stylesheet" type="text/css" href="index.css">
   </head>
   <body>        
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
-	$(document).ready(function(){
-	    $("submit").click(function(){
-	        $("hidden").show(1000);
-	    });
-	});
+		$(document).ready(function(){
+		    $("#submit").click(function(event){	   
+		    	document.getElementById('popup').style.visibility = 'visible';
+		        event.preventDefault();
+		    });
+		});		
 	</script>
   	Live in Saint Louis County?  Find where to challenge a ticket
   	<!-- Input Form -->
@@ -33,17 +35,16 @@
 	  <br>
 	  City:<br>
 	  <input type="text" name="city">
-	  <br>
-	  <input type="submit" value="Submit">
+	  <br>	  
 	  Zip Code:<br>
 	  <input type="number" name="zip">
 	  <br>
-	  <input type="submit" value="Submit">
+	  <input type="submit" id="submit" value="Submit">
 	</form>
 
 	<!-- Popup that shows processed data -->
-	<div hidden>
-		Showing jurisdictional court, directions to, and available legal services for violation at <?php echo $_POST["number"]; ?> <?php echo $_POST["street1"]; ?> and <?php echo $_POST["street2"]; ?>
+	<div class="hide" id="popup">
+		Showing jurisdictional court, directions to, and available legal services for violation at <?php if (!empty($_POST["number"])) { echo($_POST["number"]) ;}?> <?php echo ($_POST["street1"]); ?> <?php if (!empty($_POST["street2"])) { echo(" "); echo($_POST["street2"]) ;}?>
 		<br>
 		<b>Court</b>
 		<br>
