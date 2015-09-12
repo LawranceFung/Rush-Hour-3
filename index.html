@@ -1,0 +1,54 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+  <head>
+    <style>    
+	    body {padding-top: 50px;}
+	    .day {padding-left: 100px;}
+	    .hours {padding-left: 100px;}
+  	</style>
+  	<link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>        
+  	Live in Saint Louis County?  Find where to challenge a ticket
+  	<!-- Input Form -->
+  	<form action="index.html" method="post">
+	  Street Name 1<br>
+	  <input type="text" name="street1">	  
+	  <br>
+	  Street Name 2 (If at intersection) <br>
+	  <input type="text" name="street2">
+	  <br>
+	  Address Number (If not at intersection):<br>
+	  <input type="text" name="number">
+	  <br>
+	  <input type="submit" value="Submit">
+	</form>
+
+	<!-- Popup that shows processed data -->
+	<?php if (!empty($_POST)) { echo
+	(helo );}?>
+
+	<div>
+		Showing jurisdictional court, directions to, and available legal services for violation at <?php echo $_POST["street1"]; ?>
+		<br>
+		Legal Services
+		<br>
+		We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
+		<br>
+		<a href="tel:+1-800-444-0514">1-800-444-0514</a>
+		<br>
+		Hours:&nbsp;&nbsp;Monday-Thursday&nbsp;&nbsp;&nbsp;8:30 AM-3:30 PM
+		<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fridays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1:30 PM-3:30 PM
+		<br>
+		Please note if emergency
+	</div>
+
+	<!-- <form action="index.html" method="post">
+		<input type="submit" value="Start Over">
+	</form> -->
+
+	<script src="index.js"></script>
+  </body>
+</html>
