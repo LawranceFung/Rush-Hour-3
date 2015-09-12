@@ -16,6 +16,18 @@
 	<script>
 		$(document).ready(function(){
 		    $("#submit").click(function(event){	   
+		    	// Get x and y coordinates from address
+		    	// var address = document.getElementById("number").value + ", " document.getElementById("street1").value + ", Saint Louis, MO";
+
+		    	// geocoder = new google.maps.Geocoder();
+		    	// geocoder.geocode({'address':address})
+		    	// var coordinates = {"x": , "y":}
+
+		    	//Send coordinates to back end
+
+		    	//Set local variables
+
+		    	// Display the located court
 		    	document.getElementById('popup').style.visibility = 'visible';
 		        event.preventDefault();
 		    });
@@ -23,14 +35,14 @@
 	</script>
   	Live in Saint Louis County?  Find where to challenge a ticket
   	<!-- Input Form -->
-  	<form method="post">
+  	<form method="POST">
 	  Street Number (If not at intersection):<br>
 	  <input type="number" name="number">
 	  <br>	  
-	  Street Name 1<br>
+	  Street Name 1 (include type, eg road, boulevard, etc.)<br>
 	  <input type="text" name="street1">	  
 	  <br>
-	  Street Name 2 (If at intersection) <br>
+	  Street Name 2 (If at intersection) (include type, eg road, boulevard, etc.)<br>
 	  <input type="text" name="street2">
 	  <br>
 	  City:<br>
@@ -43,9 +55,7 @@
 	</form>
 
 	<!-- Popup that shows processed data -->
-	<div class="hide" id="popup">
-		Showing jurisdictional court, directions to, and available legal services for violation at <?php if (!empty($_POST["number"])) { echo($_POST["number"]) ;}?> <?php echo ($_POST["street1"]); ?> <?php if (!empty($_POST["street2"])) { echo(" "); echo($_POST["street2"]) ;}?>
-		<br>
+	<div class="hide" id="popup">				
 		<b>Court</b>
 		<br>
 		<b>Directions</b>
