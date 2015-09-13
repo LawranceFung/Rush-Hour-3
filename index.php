@@ -27,7 +27,7 @@
 			$("#submit").click(function(event){	   
 		    	//Cohere address	    	
 		    	var address = document.getElementById("address").value;		    	
-		    	var jurisdictionString = "Court with jurisdiction over violations in: ";
+		    	var jurisdictionString = "Court with jurisdiction over violations at: ";
 		    	document.getElementById('violationAddress').innerHTML = jurisdictionString.concat(address);
 		    	
 		    	// Cohere API call
@@ -39,19 +39,31 @@
 				$.getJSON(baseKey, function(data) {				    				    
 				    var xy = {"x": JSON.stringify(data['results'][0]['geometry']['location']['lat']), "y":JSON.stringify(data['results'][0]['geometry']['location']['lng'])};
 				    
-					var destUrl = 'ayeke.me:3000/municipal/';
+					var destUrl = 'http://www.ayeke.me:3000/municipal/';
 					var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'])).concat("/").concat(JSON.stringify(data['results'][0]['geometry']['location']['lng']));
-					// document.getElementById('temp').innerHTML = sendXYUrl;
-					var xmlHttp = new XMLHttpRequest();
-				    xmlHttp.onreadystatechange = function() { 
-				        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-				            var temp = callback(xmlHttp.responseText);
-				            document.getElementById('temp').innerHTML = temp;
-				            // Put the JSON data into the page
+					// $.get(sendXYUrl);
+					var data2;
+					$.ajax({
+				        url : "http://hayageektest.appspot.com/cross-domain-cors/jsonp.php",
+				        dataType:"jsonp",
+				        jsonp:"mycallback",
+				        success:function(data2)
+				        {				            
+				       		document.getElementById('temp').innerHTML = JSON.stringify(data2);     
 				        }
-				    }
-				    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
-				    xmlHttp.send(null);
+				    });
+					// document.getElementById('temp').innerHTML = sendXYUrl;
+					// var xmlHttp = new XMLHttpRequest();
+				 //    xmlHttp.onreadystatechange = function() { 
+				 //        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+				 //            var temp = callback(xmlHttp.responseText);
+				 //            document.getElementById('temp').innerHTML = temp;
+				 //            // Put the JSON data into the page
+				 //        }
+				 //    }
+				 //    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
+				 //    console.log();
+				 //    xmlHttp.send(null);
 				});
 
 		    	// Display the located court
