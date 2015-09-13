@@ -52,8 +52,15 @@
 				       		document.getElementById('temp').innerHTML = JSON.stringify(data2);     
 				       		// Put JSON data into divs
 				       		// Court
-				       		document.getElementById('courtInfo').innerHTML = JSON.stringify(data2['municipality']['name']);     
-				       		document.getElementById('courtInfo').setAttribute('href', JSON.stringify(data2['municipality']['municipal_court_website']));
+				       		document.getElementById('courtName').innerHTML = JSON.stringify(data2['municipality']['name']);     
+				       		document.getElementById('courtName').setAttribute('href', JSON.stringify(data2['municipality']['municipal_court_website']));
+				       		var courtAddress = "Address: ";
+				       		document.getElementById('courtAddress').innerHTML = courtInfo.concat(JSON.stringify(data2['address']), ", ", JSON.stringify(data2['city']), ", ", JSON.stringify(data2['state']), ", ", JSON.stringify(data2['zip_code']));   
+				       		var plus = "+";	
+				       		var courtAddress = "Address: "
+				       		document.getElementById('courtPhone').innerHTML = courtAddress.concat(JSON.stringify(data2['phone']));     
+				       		document.getElementById('courtPhone').setAttribute('href', plus.concat(slugify(JSON.stringify(data2['phone']))));  
+				       		// document.getElementById('courtInfo').innerHTML = courtInfo.concat(JSON.stringify(data2['municipality']['court_docket_listed']), ", ", );     
 				        }
 				    });
 					// document.getElementById('temp').innerHTML = sendXYUrl;
@@ -89,7 +96,11 @@
 		<div class="hide" id="popup">						
 			<b id="violationAddress"></b>
 			<br>
-			<div id="courtInfo"></div>
+			<div id="courtName"></div>
+			<br>
+			<div id="courtAddress"></div>
+			<br>
+			<div id="courtPhone"></div>
 			<br>
 			<b>Directions</b>
 			<br>
