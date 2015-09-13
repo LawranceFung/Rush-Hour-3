@@ -105,7 +105,6 @@ Please note if emergency
 
                 <div id="box" class="pure-u-1 pure-md-1"> df</div>
 
-
                 <script src="/home/kivy/react-tutorial/move.js/move.js">
                     move('#box')
                     .y(200)
@@ -120,6 +119,10 @@ Please note if emergency
                     //document.getElementById('submit').addEventListener('click', initMap);
                     var myX;
                     var myY;
+                    var pos = {
+                        lat:  38.627003,
+                        lng:  -90.199404
+                    };
                     function initMap() {
                         console.log("map init");
                         var map = new google.maps.Map(document.getElementById('map'), {
@@ -130,10 +133,7 @@ Please note if emergency
                         // Try HTML5 geolocation.
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(position) {
-                                var pos = {
-                                    lat:  38.627003,
-                                    lng:  -90.199404
-                                };
+
 
                                 infoWindow.setPosition(pos);
                                 infoWindow.setContent("here"); //Make name of
@@ -146,7 +146,33 @@ Please note if emergency
                             handleLocationError(false, infoWindow, map.getCenter());
                         }
                     }
+                    function initMap_new(x, y) {
+                        pos = {
+                          lat: x,
+                          lng: y
+                        }
+                        console.log("map init");
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: x, lng: y},
+                            zoom: 15
+                        });
+                        var infoWindow = new google.maps.InfoWindow({map: map});
+                        // Try HTML5 geolocation.
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
 
+
+                                infoWindow.setPosition(pos);
+                                infoWindow.setContent("here"); //Make name of
+                                map.setCenter(pos);
+                            }, function() {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            });
+                        } else {
+                            // Browser doesn't support Geolocation
+                            handleLocationError(false, infoWindow, map.getCenter());
+                        }
+                    }
                     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         infoWindow.setPosition(pos);
                         infoWindow.setContent(browserHasGeolocation ?
