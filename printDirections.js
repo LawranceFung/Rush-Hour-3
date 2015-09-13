@@ -45,8 +45,7 @@ $(document).ready(function() {
             (arrayOfSteps[i].distance * .00062).toFixed(2) + " miles \n\n";
         }
       }
-      // alert(printOut);
-      document.getElementById('actualDirect').innerHTML = printOut;
+      alert(printOut);
     });
   });
 });
