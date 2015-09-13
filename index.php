@@ -52,15 +52,17 @@
 					// ayeke.me:3000/municipal/{lattitude}/{longitude}
 					var destUrl = 'ayeke.me:3000/municipal/';
 					var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'])).concat("/").concat(JSON.stringify(data['results'][0]['geometry']['location']['lng']));
-					document.getElementById('temp').innerHTML = destUrl;
-					// var xmlHttp = new XMLHttpRequest();
-				 //    xmlHttp.onreadystatechange = function() { 
-				 //        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-				 //            callback(xmlHttp.responseText);
-				 //        }
-				 //    }
-				 //    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
-				 //    xmlHttp.send(null);
+					// document.getElementById('temp').innerHTML = sendXYUrl;
+					var xmlHttp = new XMLHttpRequest();
+				    xmlHttp.onreadystatechange = function() { 
+				        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+				            var temp = callback(xmlHttp.responseText);
+				            document.getElementById('temp').innerHTML = temp;
+				            // Put the JSON data into the page
+				        }
+				    }
+				    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
+				    xmlHttp.send(null);
 				});
 
 		    	// Display the located court
