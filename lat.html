@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+<![endif]-->
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+<title>Latitude Longitude Finder on Map Get Coordinates</title>
+<meta name="description" content="Lat long is a geographic tool which helps you to get latitude longitude of a place or city and find gps coordinates on map, convert lat long, gps, dms and utm." />
+
+</head>
+<body>
+
+    <div class="header">
+    <div class="topnav" id="top">
+
+        <a href="http://www.latlong.net/" title="Lat and long finder" class="logo">
+            <img src="/logo.png" width="210" height="45" alt="lat long logo" />
+        </a>
+
+        <div>
+            <ul id="navigation" class="slimmenu">
+
+                <li><a href="http://www.latlong.net/convert-address-to-lat-long.html" title="Convert Address to Lat Long">Address to Lat Long</a></li>
+                <li><a href="http://www.latlong.net/Show-Latitude-Longitude.html" title="Convert lat long to address map">Lat Long to Address</a></li>
+                <li><a href="http://www.latlong.net/lat-long-dms.html" title="Lat long to Degrees Minutes Seconds Converter">Lat Long to DMS</a></li>
+                <li><a href="http://www.latlong.net/lat-long-utm.html" title="Lat long to UTM Converter">Lat Long to UTM</a></li>
+
+                <li><a href="/add-place.html" title="Add Place">Add Place</a></li>
+                <li><a href="/latest-places.html" title="Latest Places">Latest Places</a></li>
+                <li><a href="/countries.html" title="Countries List">Country List</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="main">
+        <h1>Get Latitude Longitude</h1>
+        <p>To make a search, use the name of a place, city, state, or address, or click the location on the map to <strong>get lat long coordinates</strong>.</p>
+
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-2-3">
+        <form class="pure-form graybox padding10" id="latlongform">
+
+                        <label for="gadres">Place Name</label>
+                        <input id="gadres" type="text" placeholder="Type a place name" class="pure-input-2-3" required  />
+                        <button title="Find Lat & Long" class="pure-button pure-button-primary">Find</button><br />
+                        <small>Add the country code for better results. Ex: London, UK</small>
+
+                <div class="pure-g">
+                <div class="pure-u-1-2 pure-u-md-1-2 resultlatlong">
+                        <label for="lat">Latitude</label>
+                        <input type="text" name="lat" id="lat" placeholder="lat coordinate" /><br />
+
+                </div>
+                <div class="pure-u-1-2 pure-u-md-1-2 resultlatlong">
+                        <label for="lng">Longitude</label>
+                        <input type="text" name="lng" id="lng" placeholder="long coordinate" />
+                </div>
+            </div>
+        </form>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3 centered">
+
+            </div>
+        </div>
+
+        <div id="latlongmap" style="height:450px;">
+        </div>
+
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-1-3">
+
+                <h3 class="titleh3">Lat Long</h3>
+                <span id="latlngspan" class="coordinatetxt">0,0</span>
+
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-3">
+
+                <h3 class="titleh3">GPS Coordinates</h3>
+                <span id="dms-lat" class="coordinatetxt">0</span>
+                <span id="dms-lng" class="coordinatetxt">0</span>
+
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-3">
+
+                <h3 class="titleh3">Map Mouse Over Location</h3>
+                <span id="mlat" class="coordinatetxt">0,0</span>
+
+            </div>
+        </div>
+        <script type="text/javascript">
+
+    var map;
+    var geocoder;
+    var marker;
+    var infowindow;
+
+    function initialize() {
+        var latlng = new google.maps.LatLng(1.10, 1.10);
+        var myOptions = {
+            zoom: 2,
+            center: latlng,
+            panControl: true,
+            scrollwheel: false,
+            scaleControl: true,
+            overviewMapControl: true,
+            overviewMapControlOptions: { opened: true },
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        };
+        map = new google.maps.Map(document.getElementById("latlongmap"),
+                myOptions);
+        geocoder = new google.maps.Geocoder();
+        marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+        });
+
+        map.streetViewControl = false;
+        infowindow = new google.maps.InfoWindow({
+            content: "(1.10, 1.10)"
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+
+            var yeri = event.latLng;
+
+            var latlongi = "(" + yeri.lat().toFixed(6) + ", " +yeri.lng().toFixed(6) + ")";
+
+            infowindow.setContent(latlongi);
+
+            document.getElementById('lat').value = yeri.lat().toFixed(6);
+            document.getElementById('lng').value = yeri.lng().toFixed(6);
+            document.getElementById('latlngspan').innerHTML =  latlongi;
+
+            document.getElementById('coordinatesurl').value = 'http://www.latlong.net/c/?lat='
+                    + yeri.lat().toFixed(6) + '&long='
+                    + yeri.lng().toFixed(6);
+            document.getElementById('coordinateslink').innerHTML = '&lt;a href="http://www.latlong.net/c/?lat='
+                        + yeri.lat().toFixed(6) + '&amp;long='
+                        + yeri.lng().toFixed(6) + '" target="_blank"'+ '&gt;('
+                        + yeri.lat().toFixed(6) + ', '
+                        + yeri.lng().toFixed(6) + ')&lt;/a&gt;';
+
+            dec2dms();
+        });
+
+
+        google.maps.event.addListener(map, 'mousemove', function(event) {
+            var yeri = event.latLng;
+            document.getElementById("mlat").innerHTML = "(" + yeri.lat().toFixed(6) + ", " +yeri.lng().toFixed(6)+ ")";
+        });
+
+    }
+
+    function codeAddress() {
+        var address = document.getElementById("gadres").value;
+        if (address == '') {
+            alert("Address can not be empty!");
+            return;
+        }
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                document.getElementById('lat').value = results[0].geometry.location.lat().toFixed(6);
+                document.getElementById('lng').value = results[0].geometry.location.lng().toFixed(6);
+                var latlong = "(" + results[0].geometry.location.lat().toFixed(6) + ", " +
+                        +results[0].geometry.location.lng().toFixed(6)+ ")";
+
+                document.getElementById('latlngspan').innerHTML =  latlong;
+                document.getElementById('coordinatesurl').value = 'http://www.latlong.net/c/?lat='
+                        + results[0].geometry.location.lat().toFixed(6) + '&long='
+                        + results[0].geometry.location.lng().toFixed(6);
+
+                document.getElementById('coordinateslink').innerHTML = '&lt;a href="http://www.latlong.net/c/?lat='
+                        + results[0].geometry.location.lat().toFixed(6) + '&amp;long='
+                        + results[0].geometry.location.lng().toFixed(6) + '" target="_blank"'+ '&gt;('
+                        + results[0].geometry.location.lat().toFixed(6) + ', '
+                        + results[0].geometry.location.lng().toFixed(6) + ')&lt;/a&gt;';
+
+                marker.setPosition(results[0].geometry.location);
+                map.setZoom(16);
+                infowindow.setContent(latlong);
+
+                if (infowindow) {
+                    infowindow.close();
+                }
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map, marker);
+                });
+
+                infowindow.open(map, marker);
+
+                dec2dms();
+            } else {
+                alert("Lat and long cannot be found.");
+            }
+        });
+    }
+
+    function dec2dms( )
+    {
+        var mylat = document.getElementById("lat").value;
+        var mylng = document.getElementById("lng").value;
+        var scriptUr1 = "dec2dms.php?lat=" + mylat;
+        var scriptUr2 = "dec2dms.php?long=" + mylng;
+        $.ajax({
+            url: scriptUr1,
+            type: 'get',
+            dataType: 'html',
+            async: true,
+            success: function(data) {
+                result = data;
+                $('#dms-lat').html(result);
+            }
+        });
+        $.ajax({
+            url: scriptUr2,
+            type: 'get',
+            dataType: 'html',
+            async: true,
+            success: function(data) {
+                result = data;
+                $('#dms-lng').html(result);
+            }
+        });
+
+    }
+
+    function loadScript() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://maps.googleapis.com/maps/api/js?sensor=false&' +
+                'callback=initialize';
+        document.body.appendChild(script);
+    }
+
+    window.onload = loadScript;
+
+</script>
+    </body>
+
+
+

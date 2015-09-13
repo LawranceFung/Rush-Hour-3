@@ -1,0 +1,36 @@
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: Raleway, serif;
+}
+
+body {
+  background-color: #f5f2b8;
+  color: #818aa3;
+  font-size: 1.5em;
+  padding-left: 15px;
+  padding-bottom: 0px;
+  padding-right: 15px;
+
+}
+
+#top_text{
+  padding-top: 10px;
+}
+
+#address_box_buffer{
+
+}
+
+#address_box{
+ padding: 20px;
+}
+
+.hide {
+  visibility: visible;
+}
+
+#courtInfo{
+   padding-left: 30px;
+}
+
