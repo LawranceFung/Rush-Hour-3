@@ -29,27 +29,16 @@
 		    	var address = document.getElementById("address").value;		    	
 		    	var jurisdictionString = "Court with jurisdiction over violations in: ";
 		    	document.getElementById('violationAddress').innerHTML = jurisdictionString.concat(address);
-
-		    	// Get x and y coordinates from address	
-		    	// geocoder = new google.maps.Geocoder();
-		    	// var geocoder;
-		    	// var map;
-
-				// Google Maps API key:  AIzaSyDibtIRA06cMRn7uk3k2cY1gY_A67bAkpM 
-				// Client id:  727206825951-vemqbij0ubldshd671g7o26qi2rvpn83.apps.googleusercontent.com 
-				// client secret:  BLcTBVrwricyBmB4oElBXNa8 
-				// var clientId = '727206825951';
+		    	
+		    	// Cohere API call
 				var apiKey = 'AIzaSyC0GUd7gFoVVt03p9-hR1dLfsjmrUm9pTM';
-				var apiBase = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-				// %s,%s&key=%s
+				var apiBase = 'https://maps.googleapis.com/maps/api/geocode/json?address=';				
 				var baseAddress = apiBase.concat(slugify(address));
 				var baseKey = baseAddress.concat("&key=").concat(apiKey);
 				var data;
 				$.getJSON(baseKey, function(data) {				    				    
 				    var xy = {"x": JSON.stringify(data['results'][0]['geometry']['location']['lat']), "y":JSON.stringify(data['results'][0]['geometry']['location']['lng'])};
-				    // var latLng = JSON.stringify(data['results'][0]['geometry']['location']);
-					document.getElementById('temp').innerHTML = JSON.stringify(xy);
-					// ayeke.me:3000/municipal/{lattitude}/{longitude}
+				    
 					var destUrl = 'ayeke.me:3000/municipal/';
 					var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'])).concat("/").concat(JSON.stringify(data['results'][0]['geometry']['location']['lng']));
 					// document.getElementById('temp').innerHTML = sendXYUrl;
@@ -69,45 +58,45 @@
 		    	document.getElementById('popup').style.visibility = 'visible';
 		    	event.preventDefault();
 		    });
-});		
-</script>
-Live in Saint Louis County?  Find where to challenge a ticket
-<!-- Input Form -->
-<form method="POST">
-	Where did you get your ticket? <br>
-	<input type="text" name="address" id="address">	  
-	<br>	
-	<input type="submit" id="submit" value="Submit">
-</form>
+		});		
+		</script>
+		Live in Saint Louis County?  Find where to challenge a ticket
+		<!-- Input Form -->
+		<form method="POST">
+			Where did you get your ticket? <br>
+			<input type="text" name="address" id="address">	  
+			<br>	
+			<input type="submit" id="submit" value="Submit">
+		</form>
 
-<!-- Popup that shows processed data -->
-<div class="hide" id="popup">						
-	<b id="violationAddress"></b>
-	<br>
-	<div id="courtInfo"></div>
-	<br>
-	<b>Directions</b>
-	<br>
-	<div id="directionsText"></div>
-	<div id="directionsMap"></div>
-	<br>
-	<b>Legal Services</b>
-	<br>
-	We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
-	<br>
-	If you cannot afford a lawyer, they may be able to find a volunteer
-	<br>
-	<a href="tel:+1-800-444-0514">1-800-444-0514</a>
-	<br>
-	Hours:&nbsp;&nbsp;Monday-Thursday&nbsp;&nbsp;&nbsp;8:30 AM-3:30 PM
-	<br>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fridays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1:30 PM-3:30 PM
-	<br>
-	Please note if emergency
-</div>
+		<!-- Popup that shows processed data -->
+		<div class="hide" id="popup">						
+			<b id="violationAddress"></b>
+			<br>
+			<div id="courtInfo"></div>
+			<br>
+			<b>Directions</b>
+			<br>
+			<div id="directionsText"></div>
+			<div id="directionsMap"></div>
+			<br>
+			<b>Legal Services</b>
+			<br>
+			We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
+			<br>
+			If you cannot afford a lawyer, they may be able to find a volunteer
+			<br>
+			<a href="tel:+1-800-444-0514">1-800-444-0514</a>
+			<br>
+			Hours:&nbsp;&nbsp;Monday-Thursday&nbsp;&nbsp;&nbsp;8:30 AM-3:30 PM
+			<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fridays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1:30 PM-3:30 PM
+			<br>
+			Please note if emergency
+		</div>
 
-<div id="temp"></div>
+		<div id="temp"></div>
 
-	<script src="index.js"></script>
-</body>
+		<script src="index.js"></script>
+	</body>
 </html>
