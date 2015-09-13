@@ -17,10 +17,9 @@
         <!--<![endif]-->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-        </script>
-        <script src="/home/kivy/react-tutorial/move.js/move.js">
-        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="/home/kivy/react-tutorial/move.js/move.js"></script>
+        <script src="printDirections.js"></script>
         <head>
             <body>
                 <div class="pure-g">
@@ -68,18 +67,18 @@
                                     </div>
                                     <div id="directions" class="">
                                         <br />
-                                        <button class="pure-button"> Get Directions </button>
+                                        <button id="printDirections" class="pure-button"> Get Directions </button>
                                     </div>
                                     <br />
                                 </div>
 
                                 <div id="map" class="pure-u-1-2">
                                     <!--
-                                    <div id='Lat0' value="" hidden></div>
-                                    <div id='Lng0' value="" hidden></div>
-                                    <div id='Lat1' value="" hidden></div>
-                                    <div id='Lng1' value="" hidden></div>
-                                    -->
+<div id='Lat0' value="" hidden></div>
+<div id='Lng0' value="" hidden></div>
+<div id='Lat1' value="" hidden></div>
+<div id='Lng1' value="" hidden></div>
+-->
 
                                 </div>
                                 <!--
@@ -101,6 +100,16 @@ Please note if emergency
                         </div>
                     </div>
                 </div>
+
+                <div id="box" class="pure-u-1"> df</div>
+
+
+                <script src="/home/kivy/react-tutorial/move.js/move.js">
+                    move('#box')
+                    .y(200)
+                    .duration('3s')
+                    .end();
+                </script>
                 <script>
                     // Note: This example requires that you consent to location sharing when
                     // prompted by your browser. If you see the error "The Geolocation service
@@ -109,7 +118,7 @@ Please note if emergency
 
                     function initMap() {
                         var map = new google.maps.Map(document.getElementById('map'), {
-                            center: {lat: -34.397, lng: 150.644},
+                            center: {lat: 38.627003, lng: -90.199404},
                             zoom: 15
                         });
                         var infoWindow = new google.maps.InfoWindow({map: map});
@@ -144,18 +153,6 @@ Please note if emergency
                 </script>
                 <script src="https://maps.googleapis.com/maps/api/js?key=&signed_in=true&callback=initMap" async defer>
                 </script>
-                <script>
-
-
-                    function changeDisplay(event){
-                        document.getElementById('popup').style.visibility = "visible";
-                    }
-
-
-                </script>
-                <script type='text/javascript'>
-                </script>
-
                 <script>
                     function slugify(text) {
                         return text.toString().toLowerCase()
@@ -204,6 +201,11 @@ Please note if emergency
                                             document.getElementById('courtPhone').innerHTML = courtAddress.concat(JSON.stringify(data2['phone']));
                                             document.getElementById('courtPhone').setAttribute('href', plus.concat(slugify(JSON.stringify(data2['phone']))));
                                             // document.getElementById('courtInfo').innerHTML = courtInfo.concat(JSON.stringify(data2['municipality']['court_docket_listed']), ", ", );
+                                        }else{
+
+                                            //FILLME!!!
+                                            // Maybe leave how I have eat. Have default case take care of this case
+
                                         }
                                     }
                                 });
@@ -215,21 +217,7 @@ Please note if emergency
 
                 </script>
 
-                <div id="temp"></div>
 
-                <script src="index.js">
-
-                </script>
-
-                <div id="box"> </div>
-
-
-                <script>
-                    move('#box')
-                    .y(200)
-                    .duration('3s')
-                    .end();
-                </script>
 
 
             </body>

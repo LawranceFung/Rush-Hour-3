@@ -27,10 +27,21 @@ body {
 }
 
 .hide {
-  visibility: visible;
+  visibility: hidden;
 }
 
 #courtInfo{
+  padding-top: 20%;
    padding-left: 30px;
 }
 
+#directions{
+   padding-left: 30px;
+}
+
+#popup{
+
+}
+#map {
+        height: 400px;
+}
