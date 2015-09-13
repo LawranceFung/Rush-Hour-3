@@ -28,7 +28,7 @@
 		    	//Cohere address	    	
 		    	var address = document.getElementById("number").value.concat(" ", document.getElementById("street1").value, ", Saint Louis MO");		    	
 		    	var jurisdictionString = "Court with jurisdiction over violations in: ";
-		    	document.getElementById('courtAddress').innerHTML = jurisdictionString.concat(address);
+		    	document.getElementById('violationAddress').innerHTML = jurisdictionString.concat(address);
 
 		    	// Get x and y coordinates from address	
 		    	// geocoder = new google.maps.Geocoder();
@@ -90,13 +90,20 @@ Live in Saint Louis County?  Find where to challenge a ticket
 
 <!-- Popup that shows processed data -->
 <div class="hide" id="popup">						
-	<b id="courtAddress"></b>
+	<b id="violationAddress"></b>
+	<br>
+	<div id="courtInfo"></div>
 	<br>
 	<b>Directions</b>
+	<br>
+	<div id="directionsText"></div>
+	<div id="directionsMap"></div>
 	<br>
 	<b>Legal Services</b>
 	<br>
 	We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
+	<br>
+	If you cannot afford a lawyer, they may be able to find a volunteer
 	<br>
 	<a href="tel:+1-800-444-0514">1-800-444-0514</a>
 	<br>
