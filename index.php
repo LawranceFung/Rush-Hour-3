@@ -52,13 +52,14 @@
 					// ayeke.me:3000/municipal/{lattitude}/{longitude}
 					// var destUrl = ayeke.me:3000/municipal/;
 					// var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'], "/", JSON.stringify(data['results'][0]['geometry']['location']['lng'])
-					// var xmlHttp = new XMLHttpRequest();
-				 //    xmlHttp.onreadystatechange = function() { 
-				 //        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-				 //            callback(xmlHttp.responseText);
-				 //    }
-				 //    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
-				 //    xmlHttp.send(null);
+					var xmlHttp = new XMLHttpRequest();
+				    xmlHttp.onreadystatechange = function() { 
+				        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+				            callback(xmlHttp.responseText);
+				        }
+				    }
+				    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
+				    xmlHttp.send(null);
 				});
 
 		    	// Display the located court
@@ -102,16 +103,7 @@ Live in Saint Louis County?  Find where to challenge a ticket
 	Please note if emergency
 </div>
 
-
-
-
 <div id="temp"></div>
-
-
-
-	<!-- <form method="post">
-		<input type="submit" value="Start Over">
-	</form> -->
 
 	<script src="index.js"></script>
 </body>
