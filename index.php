@@ -50,6 +50,10 @@
 				        success:function(data2)
 				        {				            
 				       		document.getElementById('temp').innerHTML = JSON.stringify(data2);     
+				       		// Put JSON data into divs
+				       		// Court
+				       		document.getElementById('courtInfo').innerHTML = JSON.stringify(data2['municipality']['name']);     
+				       		document.getElementById('courtInfo').setAttribute('href', JSON.stringify(data2['municipality']['municipal_court_website']));
 				        }
 				    });
 					// document.getElementById('temp').innerHTML = sendXYUrl;
