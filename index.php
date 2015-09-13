@@ -6,46 +6,139 @@
 	    body {padding-top: 50px;}
 	    .day {padding-left: 100px;}
 	    .hours {padding-left: 100px;}
-	    .title {font-style: bold}
+	    .title {font-style: bold;}
+	    .hide {visibility: hidden;}
   	</style>
   	<link rel="stylesheet" type="text/css" href="index.css">
   </head>
   <body>        
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
-	$(document).ready(function(){
-	    $("submit").click(function(){
-	        $("hidden").show(1000);
-	    });
-	});
+		$(document).ready(function(){
+		    $("#submit").click(function(event){	   
+		    	//Cohere address	    	
+		    	var address = document.getElementById("number").value.concat(" ", document.getElementById("street1").value, ", Saint Louis MO");		    	
+		    	var jurisdictionString = "Court with jurisdiction over violations in: ";
+		    	document.getElementById('courtAddress').innerHTML = jurisdictionString.concat(address);
+
+		    	// Get x and y coordinates from address	
+		    	// geocoder = new google.maps.Geocoder();
+		    	var geocoder;
+  var map;
+
+// Google Maps API key:  AIzaSyDibtIRA06cMRn7uk3k2cY1gY_A67bAkpM 
+// Client id:  727206825951-vemqbij0ubldshd671g7o26qi2rvpn83.apps.googleusercontent.com 
+// client secret:  BLcTBVrwricyBmB4oElBXNa8 
+// var clientId = '727206825951';
+var apiKey = 'AIzaSyC0GUd7gFoVVt03p9-hR1dLfsjmrUm9pTM';
+var apiBase = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+// %s,%s&key=%s
+var baseAddress = apiBase.concat(address);
+var baseKey = baseAddress.concat("&key=").concat(apiKey);
+document.getElementById('temp').innerHTML = ;
+// var scopes = 'https://www.googleapis.com/auth/coordinate';
+
+// function handleClientLoad() {
+//         // Step 2: Reference the API key
+//         gapi.client.setApiKey(apiKey);
+//         window.setTimeout(checkAuth,1);
+//       }
+
+//       function checkAuth() {
+//         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+//       }
+
+//       function handleAuthResult(authResult) {
+//         var authorizeButton = document.getElementById('authorize-button');
+//         if (authResult && !authResult.error) {
+//           authorizeButton.style.visibility = 'hidden';
+//           makeApiCall();
+//         } else {
+//           authorizeButton.style.visibility = '';
+//           authorizeButton.onclick = handleAuthClick;
+//         }
+//       }
+
+//       function handleAuthClick(event) {
+//         // Step 3: get authorization to use private data
+//         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+//         return false;
+//       }
+
+
+
+//   function initialize() {
+//     geocoder = new google.maps.Geocoder();
+//     var latlng = new google.maps.LatLng(-34.397, 150.644);
+//     var mapOptions = {
+//       zoom: 8,
+//       center: latlng
+//     }
+//     map = new google.maps.Map(document.getElementById("map"), mapOptions);
+//   }
+
+// function codeAddress() {
+    
+//     geocoder.geocode( { 'address': address}, function(results, status) {
+//       if (status == google.maps.GeocoderStatus.OK) {
+
+//         map.setCenter(results[0].geometry.location);
+//         var marker = new google.maps.Marker({
+//             map: map,
+//             position: results[0].geometry.location
+//         });
+//         // document.getElementById('temp').innerHTML = marker;
+//       } else {
+//       	// document.getElementById('temp').innerHTML = status;
+//         alert("Geocode was not successful for the following reason: " + status);
+
+//       }
+//     });
+//   }
+
+// initialize();
+  // codeAddress();
+
+
+
+
+		    	// geocoder.geocode({'address':address});
+		    	// var coordinates = {"x": , "y":}
+
+		    	//Send coordinates to back end
+
+		    	//Set local variables
+
+		    	// Display the located court
+		    	document.getElementById('popup').style.visibility = 'visible';
+		        event.preventDefault();
+		    });
+		});		
 	</script>
   	Live in Saint Louis County?  Find where to challenge a ticket
   	<!-- Input Form -->
-  	<form method="post">
+  	<form method="POST">
 	  Street Number (If not at intersection):<br>
-	  <input type="number" name="number">
+	  <input type="number" name="number" id="number">
 	  <br>	  
-	  Street Name 1<br>
-	  <input type="text" name="street1">	  
+	  Street Name 1 (include type, eg road, boulevard, etc.)<br>
+	  <input type="text" name="street1" id="street1">	  
 	  <br>
-	  Street Name 2 (If at intersection) <br>
+	  Street Name 2 (If at intersection) (include type, eg road, boulevard, etc.)<br>
 	  <input type="text" name="street2">
 	  <br>
 	  City:<br>
 	  <input type="text" name="city">
-	  <br>
-	  <input type="submit" value="Submit">
+	  <br>	  
 	  Zip Code:<br>
 	  <input type="number" name="zip">
 	  <br>
-	  <input type="submit" value="Submit">
+	  <input type="submit" id="submit" value="Submit">
 	</form>
 
 	<!-- Popup that shows processed data -->
-	<div hidden>
-		Showing jurisdictional court, directions to, and available legal services for violation at <?php echo $_POST["number"]; ?> <?php echo $_POST["street1"]; ?> and <?php echo $_POST["street2"]; ?>
-		<br>
-		<b>Court</b>
+	<div class="hide" id="popup">						
+		<b id="courtAddress"></b>
 		<br>
 		<b>Directions</b>
 		<br>
@@ -63,6 +156,9 @@
 	</div>
 
 
+
+	
+	<div id="temp"></div>
 	
 	
 
