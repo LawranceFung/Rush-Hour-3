@@ -26,7 +26,7 @@
 		$(document).ready(function(){
 			$("#submit").click(function(event){	   
 		    	//Cohere address	    	
-		    	var address = document.getElementById("number").value.concat(" ", document.getElementById("street1").value, ", Saint Louis MO");		    	
+		    	var address = document.getElementById("address").value;		    	
 		    	var jurisdictionString = "Court with jurisdiction over violations in: ";
 		    	document.getElementById('violationAddress').innerHTML = jurisdictionString.concat(address);
 
@@ -48,17 +48,17 @@
 				$.getJSON(baseKey, function(data) {				    				    
 				    var xy = {"x": JSON.stringify(data['results'][0]['geometry']['location']['lat']), "y":JSON.stringify(data['results'][0]['geometry']['location']['lng'])};
 				    // var latLng = JSON.stringify(data['results'][0]['geometry']['location']);
-					// document.getElementById('temp').innerHTML = JSON.stringify(xy);
+					document.getElementById('temp').innerHTML = JSON.stringify(xy);
 					// ayeke.me:3000/municipal/{lattitude}/{longitude}
-					var destUrl = ayeke.me:3000/municipal/;
-					var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'], "/", JSON.stringify(data['results'][0]['geometry']['location']['lng'])
-					var xmlHttp = new XMLHttpRequest();
-				    xmlHttp.onreadystatechange = function() { 
-				        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-				            callback(xmlHttp.responseText);
-				    }
-				    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
-				    xmlHttp.send(null);
+					// var destUrl = ayeke.me:3000/municipal/;
+					// var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'], "/", JSON.stringify(data['results'][0]['geometry']['location']['lng'])
+					// var xmlHttp = new XMLHttpRequest();
+				 //    xmlHttp.onreadystatechange = function() { 
+				 //        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+				 //            callback(xmlHttp.responseText);
+				 //    }
+				 //    xmlHttp.open("GET", sendXYUrl, true); // true for asynchronous 
+				 //    xmlHttp.send(null);
 				});
 
 		    	// Display the located court
@@ -70,21 +70,9 @@
 Live in Saint Louis County?  Find where to challenge a ticket
 <!-- Input Form -->
 <form method="POST">
-	Street Number (If not at intersection):<br>
-	<input type="number" name="number" id="number">
-	<br>	  
-	Street Name 1 (include type, eg road, boulevard, etc.)<br>
-	<input type="text" name="street1" id="street1">	  
-	<br>
-	Street Name 2 (If at intersection) (include type, eg road, boulevard, etc.)<br>
-	<input type="text" name="street2">
-	<br>
-	City:<br>
-	<input type="text" name="city">
-	<br>	  
-	Zip Code:<br>
-	<input type="number" name="zip">
-	<br>
+	Where did you get your ticket? <br>
+	<input type="text" name="address" id="address">	  
+	<br>	
 	<input type="submit" id="submit" value="Submit">
 </form>
 
