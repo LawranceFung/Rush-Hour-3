@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-         <meta charset="utf-8">
+        <meta charset="utf-8">
         <title>
             That ain't my ticket!
         </title>
@@ -10,172 +10,228 @@
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--[if lte IE 8]>
-            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
-        <![endif]-->
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+<![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
         <!--<![endif]-->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
         </script>
         <script src="/home/kivy/react-tutorial/move.js/move.js">
-            </script>
-    <head>
-    <body>
-        <div class="pure-g">
+        </script>
+        <head>
+            <body>
+                <div class="pure-g">
 
-            <h1 class="pure-u-1-3 pure-u-md-1-3" id="web_name"> Tick2Court </h1>
-            <p class="pure-u-2-3 pure-u-md-2-3" id="top_text">Type in the address of where you got pulled over, and we will find the locations of its corresponding court</p>
+                    <h1 class="pure-u-1-3 pure-u-md-1-3" id="web_name"> Tick2Court </h1>
+                    <p class="pure-u-2-3 pure-u-md-2-3" id="top_text">
+                        Type in the address of where you got pulled over, and we will find the locations of its corresponding court
+                    </p>
 
-            <br />
-            <br />
+                    <br />
+                    <br />
 
-            <hr>
-            <div>
-                <div id="address_box_buffer" class="pure-u-1-6">
+                    <hr>
 
-                </div id="displaybox"> <!-- sketchy code. DONOT FIX! BREAKS EVERYTHING! -->
-                        <div id="address_box" class="pure-u-2-3">
-                            <p id="form_text" class="pure-u-1"> Type in the address where you got the ticket </p>
-                            <form class="pure-form pure-g" method="post">
-                                <input id="address" class="pure-input-2-3" type="text" placeholder="Street Address" required>
+                    <div id="address_box_buffer" class="pure-u-1-6">
 
-                                <button class="pure-button pure-input-1-3" onclick="changeDisplay()" id="submit"> <i class="fa fa-gavel"></i>
-                                </button>
-                            </form>
+                    </div id="displaybox"> <!-- sketchy code. DONOT FIX! BREAKS EVERYTHING! -->
+                    <div id="address_box" class="pure-u-2-3">
+                        <p id="form_text" class="pure-u-1">
+                            Type in the address where you got the ticket
+                        </p>
+                        <form class="pure-form pure-g" method="post">
+                            <input id="address" class="pure-input-2-3" type="text" placeholder="Street Address" required>
+
+                            <button class="pure-button pure-input-1-3" onclick="changeDisplay()" id="submit">
+                                <i class="fa fa-gavel"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <hr>
+
+                    <div class="hide" id="popup">
+                        <div class="pure-u-1">
+                            <h3> Court in charge of inputted address <h3>
+                                </div>
+                                <div id="courts" class="pure-u-1-2">
+                                    <div id="courtInfo" class="pure-u-1">
+                                        <div id="courtName"> City of Clayton Municipal Court </div>
+                                        <div id="courtAddress">S Brentwood Blvd </div>
+                                        <div id="courtPhone">314-290-8441</div>
+                                        <a  id="siteLink" href="">
+                                            <div>Visit Website</div>
+                                        </a>
+                                    </div>
+                                    <div id="directions" class="">
+                                        <br />
+                                        <button class="pure-button"> Get Directions </button>
+                                    </div>
+                                    <br />
+                                </div>
+
+                                <div id="map" class="pure-u-1-2">
+                                    <!--
+                                    <div id='Lat0' value="" hidden></div>
+                                    <div id='Lng0' value="" hidden></div>
+                                    <div id='Lat1' value="" hidden></div>
+                                    <div id='Lng1' value="" hidden></div>
+                                    -->
+
+                                </div>
+                                <!--
+<b>Legal Services</b>
+<br />
+We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
+<br />
+If you cannot afford a lawyer, they may be able to find a volunteer
+<br />
+<a href="tel:+1-800-444-0514">1-800-444-0514</a>
+<br />
+Hours:&nbsp;&nbsp;Monday-Thursday&nbsp;&nbsp;&nbsp;8:30 AM-3:30 PM
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fridays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1:30 PM-3:30 PM
+<br>
+Please note if emergency
+-->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <script>
+                    // Note: This example requires that you consent to location sharing when
+                    // prompted by your browser. If you see the error "The Geolocation service
+                    // failed.", it means you probably did not give permission for the browser to
+                    // locate you.
 
-        <hr>
+                    function initMap() {
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: -34.397, lng: 150.644},
+                            zoom: 15
+                        });
+                        var infoWindow = new google.maps.InfoWindow({map: map});
 
-        <div class="hide" id="popup">
-            <div>
-                <h3> Courts in charge of inputted address <h3>
-            </div>
-            <div id="courts" class="">
-                <div id="courtInfo" class="pure-u-1-2">
-                    <div id="courtName"> City of Clayton Municipal Court </div>
-                    <div id="courtAddress">S Brentwood Blvs </div>
-                   <!-- <div id="cityState">St. Louis, Missouri </div>-->
-                    <div id="courtPhone">314-290-8441</div>
+                        // Try HTML5 geolocation.
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                };
 
-                    <div id="siteLink">Visit Website</div>
+                                infoWindow.setPosition(pos);
+                                infoWindow.setContent('Location found.');
+                                map.setCenter(pos);
+                            }, function() {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            });
+                        } else {
+                            // Browser doesn't support Geolocation
+                            handleLocationError(false, infoWindow, map.getCenter());
+                        }
+                    }
 
-                </div>
-                <div id="directions" class="">
-                    <br />
-                    <button class="pure-button"> Get Directions </button>
-                </div>
-                <br />
-            </div>
-            <b>Directions</b>
-            <br />
-            <div id="directionsText"></div>
-            <div id="directionsMap"></div>
-            <br />
-            <!--
-            <b>Legal Services</b>
-            <br />
-            We recommend <a href="http://www.lsem.org/">Legal Services of Eastern Missouri</a>
-            <br />
-            If you cannot afford a lawyer, they may be able to find a volunteer
-            <br />
-            <a href="tel:+1-800-444-0514">1-800-444-0514</a>
-            <br />
-            Hours:&nbsp;&nbsp;Monday-Thursday&nbsp;&nbsp;&nbsp;8:30 AM-3:30 PM
-            <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fridays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1:30 PM-3:30 PM
-            <br>
-            Please note if emergency
-            -->
-        </div>
+                    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent(browserHasGeolocation ?
+                                              'Error: The Geolocation service failed.' :
+                                              'Error: Your browser doesn\'t support geolocation.');
+                    }
 
-    <script>
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=&signed_in=true&callback=initMap" async defer>
+                </script>
+                <script>
 
 
-            function changeDisplay(event){
-                document.getElementById('popup').style.visibility = "visible";
-            }
+                    function changeDisplay(event){
+                        document.getElementById('popup').style.visibility = "visible";
+                    }
 
 
-    </script>
-        <script type='text/javascript'>
-        </script>
+                </script>
+                <script type='text/javascript'>
+                </script>
 
-        <script>
-        	function slugify(text) {
-			return text.toString().toLowerCase()
-				.replace(/\s+/g, '-') // Replace spaces with -
-				.replace(/[^\w\-]+/g, '') // Remove all non-word chars
-				.replace(/\-\-+/g, '-') // Replace multiple - with single -
-				.replace(/^-+/, '') // Trim - from start of text
-				.replace(/-+$/, ''); // Trim - from end of text
-		}
-		// REsponse to clicking the submit button
-		$(document).ready(function(){
-			$("#submit").click(function(event){
-		    	//Cohere address
-		    	var address = document.getElementById("address").value;
+                <script>
+                    function slugify(text) {
+                        return text.toString().toLowerCase()
+                        .replace(/\s+/g, '-') // Replace spaces with -
+                        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+                        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                        .replace(/^-+/, '') // Trim - from start of text
+                        .replace(/-+$/, ''); // Trim - from end of text
+                    }
+                    // REsponse to clicking the submit button
+                    $(document).ready(function(){
+                        $("#submit").click(function(event){
+                            //Cohere address
+                            var address = document.getElementById("address").value;
 
-				var apiKey = 'AIzaSyC0GUd7gFoVVt03p9-hR1dLfsjmrUm9pTM';
-				var apiBase = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-				var baseAddress = apiBase.concat(slugify(address));
-				var baseKey = baseAddress.concat("&key=").concat(apiKey);
-				var data;
-				$.getJSON(baseKey, function(data) {
-				    var xy = {"x": JSON.stringify(data['results'][0]['geometry']['location']['lat']), "y":JSON.stringify(data['results'][0]['geometry']['location']['lng'])};
+                            var apiKey = 'AIzaSyC0GUd7gFoVVt03p9-hR1dLfsjmrUm9pTM';
+                            var apiBase = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+                            var baseAddress = apiBase.concat(slugify(address));
+                            var baseKey = baseAddress.concat("&key=").concat(apiKey);
+                            var data;
+                            $.getJSON(baseKey, function(data) {
+                                var xy = {"x": JSON.stringify(data['results'][0]['geometry']['location']['lat']), "y":JSON.stringify(data['results'][0]['geometry']['location']['lng'])};
 
-					var destUrl = 'ayeke.me:3000/municipal/';
-					var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'])).concat("/").concat(JSON.stringify(data['results'][0]['geometry']['location']['lng']));
-					// document.getElementById('temp').innerHTML = sendXYUrl;
-					var data2;
-					$.ajax({
-				        url: sendXYUrl,
-				        dataType:"json",
-				        json:"mycallback",
-				        success:function(data2)
-				        {
-                            console.log()
-				       		document.getElementById('temp').innerHTML = JSON.stringify(data2);
-				       		// Put JSON data into divs
-				       		// Court
-				       		document.getElementById('courtName').innerHTML = JSON.stringify(data2['municipality']['name']);
-				       		document.getElementById('courtName').setAttribute('href', JSON.stringify(data2['municipality']['municipal_court_website']));
-				       		var courtAddress = "Address: ";
-				       		document.getElementById('courtAddress').innerHTML = courtInfo.concat(JSON.stringify(data2['address']), ", ", JSON.stringify(data2['city']), ", ", JSON.stringify(data2['state']), ", ", JSON.stringify(data2['zip_code']));
-				       		var plus = "+";
-				       		var courtAddress = "Address: "
-				       		document.getElementById('courtPhone').innerHTML = courtAddress.concat(JSON.stringify(data2['phone']));
-				       		document.getElementById('courtPhone').setAttribute('href', plus.concat(slugify(JSON.stringify(data2['phone']))));
-				       		// document.getElementById('courtInfo').innerHTML = courtInfo.concat(JSON.stringify(data2['municipality']['court_docket_listed']), ", ", );
-				        }
-				    });
-		    });
-    });
-                });
+                                var destUrl = 'ayeke.me:3000/municipal/';
+                                var sendXYUrl = destUrl.concat(JSON.stringify(data['results'][0]['geometry']['location']['lat'])).concat("/").concat(JSON.stringify(data['results'][0]['geometry']['location']['lng']));
+                                // document.getElementById('temp').innerHTML = sendXYUrl;
+                                var data2;
+                                $.ajax({
+                                    url: sendXYUrl,
+                                    dataType:"json",
+                                    json:"mycallback",
+                                    success:function(data2)
+                                    {
+                                        if(data2['municipality']['id'] != 0){
 
-    </script>
+                                            console.log()
+                                            document.getElementById('temp').innerHTML = JSON.stringify(data2);
+                                            // Put JSON data into divs
+                                            // Court
+                                            document.getElementById('courtName').innerHTML = JSON.stringify(data2['municipality']['name']);
+                                            document.getElementById('courtName').setAttribute('href', JSON.stringify(data2['municipality']['municipal_court_website']));
+                                            var courtAddress = "Address: ";
+                                            document.getElementById('courtAddress').innerHTML = courtInfo.concat(JSON.stringify(data2['address']), ", ", JSON.stringify(data2['city']), ", ", JSON.stringify(data2['state']), ", ", JSON.stringify(data2['zip_code']));
+                                            var plus = "+";
+                                            var courtAddress = "Address: "
+                                            document.getElementById('courtPhone').innerHTML = courtAddress.concat(JSON.stringify(data2['phone']));
+                                            document.getElementById('courtPhone').setAttribute('href', plus.concat(slugify(JSON.stringify(data2['phone']))));
+                                            // document.getElementById('courtInfo').innerHTML = courtInfo.concat(JSON.stringify(data2['municipality']['court_docket_listed']), ", ", );
+                                        }
+                                    }
+                                });
+                            });
+                            document.getElementById('popup').style.visibility = 'visible';
+                            event.preventDefault();
+                        });
+                    });
 
-    <div id="temp"></div>
+                </script>
 
-	<script src="index.js">
+                <div id="temp"></div>
 
-    </script>
+                <script src="index.js">
 
-    <div id="box"> </div>
+                </script>
 
-
-    <script>
-        move('#box')
-            .y(200)
-            .duration('3s')
-            .end();
-    </script>
+                <div id="box"> </div>
 
 
-</body>
+                <script>
+                    move('#box')
+                    .y(200)
+                    .duration('3s')
+                    .end();
+                </script>
 
-</html>
+
+            </body>
+
+        </html>
