@@ -44,9 +44,9 @@
 					// $.get(sendXYUrl);
 					var data2;
 					$.ajax({
-				        url : "http://hayageektest.appspot.com/cross-domain-cors/jsonp.php",
-				        dataType:"jsonp",
-				        jsonp:"mycallback",
+				        url: sendXYUrl,
+				        dataType:"json",
+				        json:"mycallback",
 				        success:function(data2)
 				        {				            
 				       		document.getElementById('temp').innerHTML = JSON.stringify(data2);     
